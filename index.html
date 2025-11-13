@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navika Green Consulting - Built Green. Sailed Better.</title>
+    <style>
+:root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+
+  --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  --space-0: 0;
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Custom maritime colors - Minimalist White Design */
+  --maritime-navy: #0A2540;
+  --maritime-green: #2E8B57;
+  --maritime-green-dark: #1F6B3F;
+  --pure-white: #FFFFFF;
+  --light-gray: #F5F5F5;
+  --text-gray: #666666;
+  --border-light: rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-normal);
+  color: var(--maritime-navy);
+  background-color: var(--pure-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Navigation */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: all var(--duration-normal) var(--ease-standard);
+  padding: var(--space-20) 0;
+  background-color: var(--pure-white);
+}
+
+.header.scrolled {
+  background-color: var(--pure-white);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: var(--space-12) 0;
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--space-32);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.logo-navika {
+  color: var(--maritime-navy);
+}
+
+.logo-green {
+  color: var(--maritime-green);
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: var(--space-32);
+}
+
+.nav-menu a {
+  color: var(--maritime-navy);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+  transition: color var(--duration-fast) var(--ease-standard);
+  position: relative;
+}
+
+.nav-menu a:hover {
+  color: var(--maritime-green);
+}
+
+.nav-menu a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--maritime-green);
+  transition: width var(--duration-normal) var(--ease-standard);
+}
+
+.nav-menu a:hover::after {
+  width: 100%;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-8);
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background-color: var(--maritime-navy);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--pure-white);
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-32);
+  padding-top: 120px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1px;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, var(--border-light), transparent);
+  z-index: 1;
+}
+
+.hero-content {
+  max-width: 900px;
+  position: relative;
+  z-index: 2;
+  color: var(--maritime-navy);
+  animation: fadeInUp 1s var(--ease-standard);
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-24);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--maritime-navy);
+}
+
+.hero h2 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-32);
+  color: var(--maritime-navy);
+}
+
+.hero p {
+  font-size: var(--font-size-xl);
+  line-height: 1.6;
+  margin-bottom: var(--space-32);
+  color: var(--text-gray);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: var(--space-16) var(--space-32);
+  background-color: var(--maritime-green);
+  color: var(--pure-white);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.cta-button:hover {
+  background-color: var(--maritime-green-dark);
+  transform: translateY(-1px);
+}
+
+/* Section Styles */
+.section {
+  padding: 80px var(--space-32);
+}
+
+.section-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-24);
+  text-align: center;
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--maritime-navy);
+  position: relative;
+  padding-bottom: var(--space-16);
+}
+
+.section-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--maritime-green);
+}
+
+.section-subtitle {
+  font-size: var(--font-size-xl);
+  color: var(--text-gray);
+  text-align: center;
+  margin-bottom: var(--space-32);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-text {
+  font-size: var(--font-size-lg);
+  line-height: 1.8;
+  color: var(--text-gray);
+  max-width: 900px;
+  margin: 0 auto var(--space-32);
+  text-align: center;
+}
+
+.bg-light {
+  background-color: var(--light-gray);
+}
+
+.bg-dark {
+  background-color: var(--pure-white);
+  color: var(--maritime-navy);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.bg-dark .section-heading,
+.bg-dark .section-text {
+  color: var(--maritime-navy);
+}
+
+.bg-dark .section-subtitle {
+  color: var(--text-gray);
+}
+
+/* Cards Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-32);
+  margin-top: var(--space-32);
+}
+
+.card {
+  background-color: var(--pure-white);
+  border-radius: var(--radius-base);
+  padding: var(--space-32);
+  box-shadow: none;
+  transition: all var(--duration-normal) var(--ease-standard);
+  border: 1px solid var(--border-light);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.bg-dark .card {
+  background-color: var(--pure-white);
+  border-color: var(--border-light);
+}
+
+.card-icon {
+  width: 8px;
+  height: 8px;
+  background-color: var(--maritime-green);
+  border-radius: 50%;
+  margin-bottom: var(--space-20);
+}
+
+.card h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-16);
+  color: var(--maritime-navy);
+}
+
+.bg-dark .card h3 {
+  color: var(--maritime-navy);
+}
+
+.card p {
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--text-gray);
+}
+
+.bg-dark .card p {
+  color: var(--text-gray);
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card li {
+  padding: var(--space-8) 0;
+  padding-left: var(--space-24);
+  position: relative;
+  color: var(--text-gray);
+  line-height: 1.6;
+}
+
+.bg-dark .card li {
+  color: var(--text-gray);
+}
+
+.card li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--maritime-green);
+  font-weight: var(--font-weight-bold);
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+/* Team Section */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-32);
+  margin-top: var(--space-32);
+}
+
+.team-card {
+  background-color: var(--pure-white);
+  border-radius: var(--radius-base);
+  padding: var(--space-32);
+  text-align: center;
+  box-shadow: none;
+  transition: all var(--duration-normal) var(--ease-standard);
+  border: 1px solid var(--border-light);
+}
+
+.team-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.team-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: var(--maritime-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-20);
+  font-size: var(--font-size-3xl);
+  color: var(--pure-white);
+  font-weight: var(--font-weight-bold);
+}
+
+.team-card h3 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-16);
+  color: var(--maritime-navy);
+}
+
+.team-card p {
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  color: var(--text-gray);
+  text-align: left;
+}
+
+/* Contact Section */
+.contact-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-info {
+  text-align: center;
+  margin-bottom: var(--space-32);
+}
+
+.contact-info h3 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-16);
+  color: var(--maritime-navy);
+}
+
+.contact-info p {
+  font-size: var(--font-size-lg);
+  color: var(--text-gray);
+  margin-bottom: var(--space-8);
+}
+
+.contact-info a {
+  color: var(--maritime-green);
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+.contact-form {
+  background-color: var(--pure-white);
+  padding: var(--space-32);
+  border-radius: var(--radius-base);
+  box-shadow: none;
+  border: 1px solid var(--border-light);
+}
+
+.form-group {
+  margin-bottom: var(--space-24);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+  color: var(--maritime-navy);
+  font-size: var(--font-size-base);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: var(--space-12);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  background-color: var(--pure-white);
+  color: var(--maritime-navy);
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--maritime-green);
+  box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+}
+
+.form-textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.submit-button {
+  width: 100%;
+  padding: var(--space-16);
+  background-color: var(--maritime-green);
+  color: var(--pure-white);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.submit-button:hover {
+  background-color: var(--maritime-green-dark);
+  transform: translateY(-1px);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+/* Footer */
+.footer {
+  background-color: var(--maritime-navy);
+  color: var(--pure-white);
+  padding: 60px var(--space-32);
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.footer p {
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  opacity: 0.8;
+  margin-bottom: var(--space-16);
+}
+
+.footer-copyright {
+  font-size: var(--font-size-sm);
+  opacity: 0.7;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--space-16);
+  margin-top: var(--space-16);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInUp 0.8s var(--ease-standard) forwards;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    left: -100%;
+    flex-direction: column;
+    background-color: var(--pure-white);
+    width: 100%;
+    padding: var(--space-32);
+    gap: var(--space-20);
+    transition: left var(--duration-normal) var(--ease-standard);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--border-light);
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  .section {
+    padding: 60px var(--space-20);
+  }
+
+  .cards-grid,
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: var(--space-20);
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 var(--space-16);
+  }
+
+  .section {
+    padding: 40px var(--space-16);
+  }
+
+  .contact-form {
+    padding: var(--space-20);
+  }
+}
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header" id="header">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <span class="logo-navika">NAVIKA</span>
+                <span class="logo-green">GREEN</span>
+            </a>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">What We Do</a></li>
+                    <li><a href="#impact">Impact</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Built Green. Sailed Better.</h1>
+            <h2>Building the Future of Maritime, Sustainably.</h2>
+            <p>We are transforming premier strategic assets into the world's first network of sustainable shipbuilding and repair hubs.</p>
+            <a href="#contact" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="section" id="about">
+        <div class="section-container">
+            <h2 class="section-heading">Transforming Maritime Industry</h2>
+            <p class="section-text">Navika Green Consulting supports shipyards, shipowners, and investors in making the maritime industry cleaner, more efficient, and fully compliant with the world's new environmental standards. We turn decarbonisation plans into practical, data-driven projects—from yard transformation to verified ESG reporting.</p>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="section bg-light">
+        <div class="section-container">
+            <h2 class="section-heading">A New Beginning for the Maritime Industry</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🚢</div>
+                    <h3>Sustainable Shipyard Ecosystem</h3>
+                    <p>Navika Green Consulting represents a new era for global shipbuilding and repair. We are pioneering a new category of industrial enterprise: the sustainable shipyard ecosystem.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Transform Maritime Assets</h3>
+                    <p>Our mission is to identify and transform strategically located, underutilized maritime assets into fully integrated, sustainable hubs for building and maintaining the vessels of tomorrow. By retrofitting existing infrastructure with cutting-edge green technology, we de-risk development and accelerate the industry's path to net-zero.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenge Section -->
+    <section class="section bg-dark">
+        <div class="section-container">
+            <h2 class="section-heading">The $2 Trillion Maritime Industry Has a Blind Spot</h2>
+            <p class="section-text">Much attention is given to cleaning up what comes out of a ship's funnel—but this ignores a massive source of emissions: the carbon created long before a vessel ever touches the water.</p>
+            <p class="section-text">The construction of a single ship requires thousands of tonnes of steel and immense energy, creating a significant embedded carbon debt that the industry has largely overlooked.</p>
+            <p class="section-text">Navika addresses the entire vessel lifecycle—from construction to operation—revolutionizing how ships are made, powered, and maintained.</p>
+        </div>
+    </section>
+
+    <!-- Navika Advantage Section -->
+    <section class="section">
+        <div class="section-container">
+            <h2 class="section-heading">Transform, Don't Just Build</h2>
+            <p class="section-text">Our strategy is to acquire and revitalize premier maritime assets with exceptional strategic potential. Each site we develop is guided by The Navika Advantage:</p>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">📍</div>
+                    <h3>Proven Locations, Not Greenfields</h3>
+                    <p>We target assets with existing deep-water access, core infrastructure, and strategic positioning on key global shipping lanes—slashing time-to-market and execution risk.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Integrated Green Tech Ecosystem</h3>
+                    <p>Each Navika site follows a replicable blueprint for energy sovereignty, circular production, and water neutrality.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔐</div>
+                    <h3>The Navika Digital Green Passport (NDGP)</h3>
+                    <p>Our blockchain-powered ledger records each vessel's materials, energy, and carbon footprint—creating a trusted digital record that adds measurable value for shipowners, financiers, and regulators.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💰</div>
+                    <h3>Dual-Sector Revenue</h3>
+                    <p>Navika's model serves both high-value contracts and high-volume commercial projects, ensuring resilient, diversified returns.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Do Section -->
+    <section class="section bg-light" id="services">
+        <div class="section-container">
+            <h2 class="section-heading">What We Do</h2>
+            <p class="section-subtitle">We bridge the gap between strategy and real results for maritime decarbonisation.</p>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Strategy &amp; Compliance</h3>
+                    <ul>
+                        <li>Design roadmaps for fleets and shipyards</li>
+                        <li>Prepare for CBAM, FuelEU Maritime, and ESG disclosure</li>
+                        <li>Model the financial impact of compliance and incentives</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔧</div>
+                    <h3>Transformation &amp; Delivery</h3>
+                    <ul>
+                        <li>Create 'Green Yard' plans that reduce energy, water, and waste</li>
+                        <li>Integrate solar, BESS, and hydrogen systems</li>
+                        <li>Embed circularity into operations</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h3>NDGP – Navika Digital Green Passport</h3>
+                    <ul>
+                        <li>Implement NDGP for lifecycle transparency</li>
+                        <li>Track every tonne of material and megawatt-hour of energy</li>
+                        <li>Used in vessel production and repair</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Section -->
+    <section class="section">
+        <div class="section-container">
+            <h2 class="section-heading">Platform for Global Impact</h2>
+            <p class="section-text">Our development model applies to strategic maritime assets that meet a core set of criteria:</p>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🌍</div>
+                    <h3>Strategic Geographic Nexus</h3>
+                    <p>On global shipping corridors near key ports and defence installations</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏭</div>
+                    <h3>Existing Industrial Foundation</h3>
+                    <p>Land, berths, fabrication halls, and utilities ready for upgrade</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚖️</div>
+                    <h3>Scale for Sovereignty</h3>
+                    <p>Capacity for solar, hydrogen, and future expansion</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <h3>National Strategic Alignment</h3>
+                    <p>Supported by government initiatives for green tech and sustainable manufacturing</p>
+                </div>
+            </div>
+            <p class="section-text" style="margin-top: 40px;">This model is replicable worldwide, a scalable blueprint for sustainable maritime transformation.</p>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="section bg-dark" id="impact">
+        <div class="section-container">
+            <h2 class="section-heading">Impact</h2>
+            <p class="section-subtitle">Every project we deliver proves that maritime decarbonisation can be both responsible and profitable.</p>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🌱</div>
+                    <h3>Reduced yard and vessel CO₂ emissions</h3>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💧</div>
+                    <h3>Lower water and waste footprints</h3>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✅</div>
+                    <h3>Verified ESG data for regulators and financiers</h3>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💵</div>
+                    <h3>Enhanced access to green financing and certification</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section" id="team">
+        <div class="section-container">
+            <h2 class="section-heading">Meet the Team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-photo">SM</div>
+                    <h3>Shash Maruthi</h3>
+                    <p>A seasoned financial leader with more than two decades of experience driving large-scale, mission-critical transformations. Shash has a strong track record of global operations management, stringent compliance, and innovation that fuels scalable growth. Previously a Director at Goldman Sachs, JP Morgan Chase and Citi Bank, he has led strategic initiatives spanning commercial lending, corporate, and investment banking.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo">DR</div>
+                    <h3>Davinder Rai</h3>
+                    <p>Davinder is an accomplished investment professional with a distinguished record of leading complex, high-profile transactions and strategic projects across global markets. He brings deep expertise in deal structuring, negotiations, and stakeholder management. Davinder has secured key contract and forged strong government alliances.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo">PK</div>
+                    <h3>Panos Kalafatis</h3>
+                    <p>Panos is an entrepreneur and specialist in carbon intelligence and AI-driven sustainability platforms. With 20+ years of experience in environmental innovation he possesses deep expertise in developing MRV systems, circular economy models, and achieving water neutrality. He brings a proven track record in sustainability-linked financing and a strong network within the Greek and European shipping sectors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section bg-light" id="contact">
+        <div class="section-container">
+            <div class="contact-content">
+                <h2 class="section-heading">Global Presence</h2>
+                <div class="contact-info">
+                    <h3>London | Dubai | Oslo | Mumbai</h3>
+                    <p><a href="mailto:info@navikagreenconsulting.com">info@navikagreenconsulting.com</a></p>
+                    <p style="margin-top: 20px; font-size: 18px;">We'll help you plan, finance, and deliver your next low-carbon maritime project.</p>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Name</label>
+                        <input type="text" id="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" id="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="company">Company</label>
+                        <input type="text" id="company" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="message">Message</label>
+                        <textarea id="message" class="form-textarea" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>This website contains proprietary and confidential information about Navika Green Consulting Ltd. It is provided for informational purposes to potential stakeholders and is not an offer or solicitation. By engaging with this content, you acknowledge the confidential nature of this information. We collect only essential contact data to respond to enquiries. No marketing messages are sent without consent. Cookies are limited to essential functionality and anonymous analytics.</p>
+            <p class="footer-copyright">© 2025 Navika Green Consulting Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Sticky header on scroll
+        const header = document.getElementById('header');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const company = document.getElementById('company').value;
+            const message = document.getElementById('message').value;
+            
+            // In a real application, this would send data to a server
+            alert(`Thank you, ${name}! Your message has been received. We will contact you at ${email} soon.`);
+            
+            // Reset form
+            contactForm.reset();
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.card, .team-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
