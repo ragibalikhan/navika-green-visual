@@ -457,7 +457,7 @@
         }
 
         .project-card:nth-child(3) .project-image {
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300"><rect fill="%234a90a4" width="500" height="300"/><rect fill="%23697689" x="0" y="180" width="500" height="120"/><polygon fill="%232d4a56" points="100,80 200,180 0,180"/><polygon fill="%232d4a56" points="300,80 400,180 200,180"/><rect fill="%2395a5a6" x="420" y="100" width="60" height="180"/></svg>');
+            background-image: url('bsse.jpeg');
         }
 
         .project-title {
@@ -493,6 +493,7 @@
             }
         }
     
+
 
 
 
