@@ -884,6 +884,7 @@ body {
 
 /* Navigation */
 .navbar {
+  background: white;
   position: fixed;
   top: 0;
   left: 0;
@@ -902,7 +903,7 @@ body {
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
   /* padding: var(--space-16) var(--space-24); */
   padding-right: 30px;
