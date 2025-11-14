@@ -27,7 +27,7 @@
             display: flex;
             align-items: flex-start;
             gap: 18px;
-            margin-bottom: 28px;
+            /* margin-bottom: 28px; */
         }
 
         .icon-circle {
@@ -493,3 +493,4 @@
             }
         }
     
+
