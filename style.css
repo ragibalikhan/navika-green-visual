@@ -884,7 +884,6 @@ body {
 
 /* Navigation */
 .navbar {
-  background: white !important
   position: fixed;
   top: 0;
   left: 0;
@@ -903,9 +902,9 @@ body {
 }
 
 .nav-container {
-  max-width: 1500px;
+  /* max-width: 1200px; */
   margin: 0 auto;
-  /* padding: var(--space-16) var(--space-24); */
+  padding: var(--space-16) var(--space-24);
   padding-right: 30px;
   display: flex;
   justify-content: space-between;
@@ -914,7 +913,7 @@ body {
 }
 
 .nav-logo .logo-img {
-  height: 120px;
+  height: 35px;
   width: auto;
   transition: transform var(--duration-normal) var(--ease-standard);
 }
@@ -1053,7 +1052,7 @@ body {
   /* max-width: 900px; */
   animation: fadeInUp 1s var(--ease-standard) forwards;
   opacity: 0;
-  margin-top: 580px
+  margin-top: 540px
 }
 
 @keyframes fadeInUp {
@@ -1106,6 +1105,14 @@ body {
   line-height: 1.6;
   animation: fadeInUp 1s var(--ease-standard) 0.4s forwards;
   opacity: 0;
+}
+
+.footimg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    /* margin-right: 128px; */
+    margin-left: -40px;
 }
 
 /* Button Styles */
