@@ -453,7 +453,7 @@
         }
 
         .project-card:nth-child(2) .project-image {
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300"><rect fill="%232c3e50" width="500" height="300"/><rect fill="%2334495e" x="100" y="80" width="120" height="180"/><rect fill="%2334495e" x="280" y="80" width="120" height="180"/><rect fill="%23bdc3c7" x="0" y="0" width="80" height="300"/><rect fill="%23bdc3c7" x="420" y="0" width="80" height="300"/></svg>');
+            background-image: url('dd.jpeg');
         }
 
         .project-card:nth-child(3) .project-image {
@@ -493,6 +493,7 @@
             }
         }
     
+
 
 
 
