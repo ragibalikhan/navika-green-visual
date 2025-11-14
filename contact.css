@@ -287,7 +287,7 @@
         .tilt-service-card {
             background: #2e8b5740;
             border-radius: 12px;
-            padding: 50px 35px 40px;
+            padding: 12px 15px 43px;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
@@ -493,6 +493,7 @@
             }
         }
     
+
 
 
 
