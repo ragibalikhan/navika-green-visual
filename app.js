@@ -335,6 +335,142 @@ document.addEventListener('DOMContentLoaded', () => {
   setMobileVH();
   
   // Add touch event handling for better mobile experience
+
+
+  // Add this to your existing app.js file
+
+// Contact Form Handler
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                firstName: contactForm.querySelector('input[name="firstName"]').value,
+                lastName: contactForm.querySelector('input[name="lastName"]').value,
+                email: contactForm.querySelector('input[name="email"]').value,
+                subject: contactForm.querySelector('input[name="subject"]').value,
+                message: contactForm.querySelector('textarea[name="message"]').value,
+                newsletter: contactForm.querySelector('input[name="newsletter"]').checked
+            };
+            
+            // Get submit button
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            const originalBtnText = submitBtn.textContent;
+            
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.style.opacity = '0.7';
+            
+            try {
+                // Send to backend
+                const response = await fetch('http://localhost:3000/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Success message
+                    showNotification('Thank you! Your message has been sent successfully.', 'success');
+                    contactForm.reset();
+                } else {
+                    // Error message
+                    showNotification(result.message || 'Failed to send message. Please try again.', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Network error. Please check your connection and try again.', 'error');
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+                submitBtn.style.opacity = '1';
+            }
+        });
+    }
+});
+
+// Notification function
+function showNotification(message, type) {
+    // Remove any existing notifications
+    const existingNotification = document.querySelector('.form-notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `form-notification ${type}`;
+    notification.textContent = message;
+    
+    // Style the notification
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        border-radius: 5px;
+        font-weight: 500;
+        z-index: 10000;
+        animation: slideIn 0.3s ease-out;
+        max-width: 400px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    `;
+    
+    if (type === 'success') {
+        notification.style.backgroundColor = '#4CAF50';
+        notification.style.color = 'white';
+    } else {
+        notification.style.backgroundColor = '#f44336';
+        notification.style.color = 'white';
+    }
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Remove after 5 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+    }, 5000);
+}
+
+// Add CSS animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
   if ('ontouchstart' in window) {
     document.body.classList.add('touch-device');
   }
