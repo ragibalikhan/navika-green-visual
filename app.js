@@ -570,3 +570,5 @@ if (!document.getElementById('form-animations')) {
 // DEBUGGING HELPER
 // ============================================
 console.log('Contact form script loaded successfully');
+
+  });
