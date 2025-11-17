@@ -339,69 +339,147 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add this to your existing app.js file
 
-// Contact Form Handler
+// ============================================
+// CONTACT FORM HANDLER - Add this to app.js
+// ============================================
+
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Form handler loaded');
+    
     const contactForm = document.getElementById('contactForm');
     
-    if (contactForm) {
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = {
-                firstName: contactForm.querySelector('input[name="firstName"]').value,
-                lastName: contactForm.querySelector('input[name="lastName"]').value,
-                email: contactForm.querySelector('input[name="email"]').value,
-                subject: contactForm.querySelector('input[name="subject"]').value,
-                message: contactForm.querySelector('textarea[name="message"]').value,
-                newsletter: contactForm.querySelector('input[name="newsletter"]').checked
-            };
-            
-            // Get submit button
-            const submitBtn = contactForm.querySelector('.submit-btn');
-            const originalBtnText = submitBtn.textContent;
-            
-            // Disable button and show loading state
+    if (!contactForm) {
+        console.error('Contact form not found!');
+        return;
+    }
+    
+    console.log('Contact form found');
+    
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        console.log('Form submitted');
+        
+        // Get all form elements
+        const firstNameInput = this.querySelector('input[name="firstName"]');
+        const lastNameInput = this.querySelector('input[name="lastName"]');
+        const emailInput = this.querySelector('input[name="email"]');
+        const subjectInput = this.querySelector('input[name="subject"]');
+        const messageInput = this.querySelector('textarea[name="message"]');
+        const newsletterInput = this.querySelector('input[name="newsletter"]');
+        const submitBtn = this.querySelector('.submit-btn') || this.querySelector('button[type="submit"]');
+        
+        // Debug: Check which fields are found
+        console.log('Fields found:', {
+            firstName: !!firstNameInput,
+            lastName: !!lastNameInput,
+            email: !!emailInput,
+            subject: !!subjectInput,
+            message: !!messageInput,
+            newsletter: !!newsletterInput
+        });
+        
+        // Validate required fields exist
+        if (!firstNameInput || !emailInput || !subjectInput || !messageInput) {
+            console.error('Missing required form fields');
+            showNotification('Form error: Missing required fields. Please refresh the page.', 'error');
+            return;
+        }
+        
+        // Get form data
+        const formData = {
+            firstName: firstNameInput.value.trim(),
+            lastName: lastNameInput ? lastNameInput.value.trim() : '',
+            email: emailInput.value.trim(),
+            subject: subjectInput.value.trim(),
+            message: messageInput.value.trim(),
+            newsletter: newsletterInput ? newsletterInput.checked : false
+        };
+        
+        console.log('Form data:', formData);
+        
+        // Basic validation
+        if (!formData.firstName || !formData.email || !formData.subject || !formData.message) {
+            showNotification('Please fill in all required fields.', 'error');
+            return;
+        }
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            showNotification('Please enter a valid email address.', 'error');
+            return;
+        }
+        
+        // Get submit button
+        const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
+        
+        // Disable button and show loading state
+        if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
             submitBtn.style.opacity = '0.7';
+            submitBtn.style.cursor = 'not-allowed';
+        }
+        
+        try {
+            // IMPORTANT: Change this URL based on your backend choice
+            // Option 1: Node.js backend (local development)
+            // const apiUrl = 'http://localhost:3000/api/contact';
             
-            try {
-                // Send to backend
-                const response = await fetch('https://navika-backend.vercel.app/api/contact', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    // Success message
-                    showNotification('Thank you! Your message has been sent successfully.', 'success');
-                    contactForm.reset();
-                } else {
-                    // Error message
-                    showNotification(result.message || 'Failed to send message. Please try again.', 'error');
-                }
-                
-            } catch (error) {
-                console.error('Error:', error);
-                showNotification('Network error. Please check your connection and try again.', 'error');
-            } finally {
-                // Re-enable button
+            // Option 2: Node.js backend (production)
+            // const apiUrl = 'https://yourdomain.com/api/contact';
+            
+            // Option 3: PHP backend
+            const apiUrl = 'contact.php';
+            
+            // Option 4: Formspree
+            // const apiUrl = 'https://formspree.io/f/YOUR_FORM_ID';
+            
+            console.log('Sending to:', apiUrl);
+            
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            console.log('Response status:', response.status);
+            
+            const result = await response.json();
+            console.log('Response data:', result);
+            
+            if (response.ok && result.success) {
+                // Success
+                showNotification('Thank you! Your message has been sent successfully. We\'ll get back to you soon.', 'success');
+                contactForm.reset();
+            } else {
+                // Error from server
+                showNotification(result.message || 'Failed to send message. Please try again.', 'error');
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Network error. Please check your connection and try again.', 'error');
+        } finally {
+            // Re-enable button
+            if (submitBtn) {
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalBtnText;
                 submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
             }
-        });
-    }
+        }
+    });
 });
 
-// Notification function
+// ============================================
+// NOTIFICATION FUNCTION
+// ============================================
 function showNotification(message, type) {
+    console.log('Showing notification:', type, message);
+    
     // Remove any existing notifications
     const existingNotification = document.querySelector('.form-notification');
     if (existingNotification) {
@@ -425,6 +503,8 @@ function showNotification(message, type) {
         animation: slideIn 0.3s ease-out;
         max-width: 400px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        font-size: 14px;
+        line-height: 1.5;
     `;
     
     if (type === 'success') {
@@ -445,33 +525,48 @@ function showNotification(message, type) {
     }, 5000);
 }
 
-// Add CSS animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(400px);
-            opacity: 0;
+// ============================================
+// ADD CSS ANIMATIONS
+// ============================================
+if (!document.getElementById('form-animations')) {
+    const style = document.createElement('style');
+    style.id = 'form-animations';
+    style.textContent = `
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
-        to {
-            transform: translateX(0);
-            opacity: 1;
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
         }
-    }
-    
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
+        
+        @media (max-width: 768px) {
+            .form-notification {
+                left: 10px !important;
+                right: 10px !important;
+                top: 10px !important;
+                max-width: calc(100% - 20px) !important;
+            }
         }
-        to {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
-  if ('ontouchstart' in window) {
-    document.body.classList.add('touch-device');
-  }
-});
+    `;
+    document.head.appendChild(style);
+}
+
+// ============================================
+// DEBUGGING HELPER
+// ============================================
+console.log('Contact form script loaded successfully');
