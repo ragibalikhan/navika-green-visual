@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             try {
                 // Send to backend
-                const response = await fetch('http://localhost:3000/api/contact', {
+                const response = await fetch('https://navika-backend.vercel.app/api/contact', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
