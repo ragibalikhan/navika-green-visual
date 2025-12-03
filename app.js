@@ -1,4 +1,10 @@
-// Scroll-based navbar enhancement
+// app.js - Navika Green Consulting
+// Clean version without duplicates
+
+// ============================================================
+// 1. NAVBAR & NAVIGATION
+// ============================================================
+
 const navbar = document.getElementById('navbar');
 let lastScroll = 0;
 
@@ -20,7 +26,6 @@ const navMenu = document.getElementById('navMenu');
 const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
 const navLinks = document.querySelectorAll('.nav-link');
 
-// Mobile menu toggle with scroll lock
 mobileMenuToggle.addEventListener('click', () => {
   const isActive = navMenu.classList.contains('active');
   
@@ -38,7 +43,6 @@ mobileMenuToggle.addEventListener('click', () => {
   }
 });
 
-// Close menu when clicking backdrop
 mobileMenuBackdrop.addEventListener('click', () => {
   mobileMenuToggle.classList.remove('active');
   navMenu.classList.remove('active');
@@ -47,17 +51,14 @@ mobileMenuBackdrop.addEventListener('click', () => {
   document.body.style.paddingRight = '';
 });
 
-// Close mobile menu when clicking a nav link
 navLinks.forEach(link => {
   link.addEventListener('click', (e) => {
-    // Close mobile menu
     mobileMenuToggle.classList.remove('active');
     navMenu.classList.remove('active');
     mobileMenuBackdrop.classList.remove('active');
     document.body.style.overflow = '';
     document.body.style.paddingRight = '';
     
-    // Smooth scroll with offset
     const targetId = link.getAttribute('href');
     if (targetId && targetId.startsWith('#')) {
       e.preventDefault();
@@ -73,7 +74,10 @@ navLinks.forEach(link => {
   });
 });
 
-// Active navigation link based on scroll position
+// ============================================================
+// 2. ACTIVE NAV LINK BASED ON SCROLL
+// ============================================================
+
 const sections = document.querySelectorAll('section[id]');
 
 function updateActiveNavLink() {
@@ -97,7 +101,10 @@ function updateActiveNavLink() {
 
 window.addEventListener('scroll', updateActiveNavLink);
 
-// Intersection Observer for scroll animations
+// ============================================================
+// 3. INTERSECTION OBSERVER FOR ANIMATIONS
+// ============================================================
+
 const observerOptions = {
   threshold: 0.1,
   rootMargin: '0px 0px -50px 0px'
@@ -111,13 +118,15 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Observe all elements with animate-on-scroll class
 const animatedElements = document.querySelectorAll('.animate-on-scroll');
 animatedElements.forEach(element => {
   observer.observe(element);
 });
 
-// Parallax effect for hero section
+// ============================================================
+// 4. PARALLAX EFFECT FOR HERO
+// ============================================================
+
 const hero = document.querySelector('.hero');
 const heroContent = document.querySelector('.hero-content');
 
@@ -131,115 +140,170 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Form validation and submission
-const contactForm = document.getElementById('contactForm');
+// ============================================================
+// 5. UTILITY FUNCTIONS
+// ============================================================
 
-if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+function setMobileVH() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+// ============================================================
+// 6. CONTACT FORM HANDLER - SINGLE IMPLEMENTATION
+// ============================================================
+
+function initializeContactForm() {
+  console.log('🔧 Initializing contact form...');
+  
+  const contactForm = document.getElementById('contactForm');
+  
+  if (!contactForm) {
+    console.warn('⚠️ Contact form not found with ID "contactForm"');
+    return;
+  }
+  
+  console.log('✅ Contact form found');
+  
+  contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
+    console.log('📋 Form submitted');
     
     // Get form fields
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const messageInput = document.getElementById('message');
+    const firstNameInput = contactForm.querySelector('input[name="firstName"]');
+    const lastNameInput = contactForm.querySelector('input[name="lastName"]');
+    const emailInput = contactForm.querySelector('input[name="email"]');
+    const subjectInput = contactForm.querySelector('input[name="subject"]');
+    const messageInput = contactForm.querySelector('textarea[name="message"]');
+    const newsletterInput = contactForm.querySelector('input[name="newsletter"]');
+    const formStatus = document.getElementById('formStatus');
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
     
-    let isValid = true;
-    
-    // Simple validation
-    if (nameInput.value.trim() === '') {
-      nameInput.classList.add('error');
-      isValid = false;
-    } else {
-      nameInput.classList.remove('error');
-      nameInput.classList.add('success');
+    // Validation - Check if fields exist
+    if (!firstNameInput || !emailInput || !subjectInput || !messageInput) {
+      console.error('❌ Missing form fields');
+      showFormStatus('Form error: Missing required fields', 'error', formStatus);
+      return;
     }
     
+    // Get values
+    const firstName = firstNameInput.value.trim();
+    const lastName = lastNameInput ? lastNameInput.value.trim() : '';
+    const email = emailInput.value.trim();
+    const subject = subjectInput.value.trim();
+    const message = messageInput.value.trim();
+    const newsletter = newsletterInput ? newsletterInput.checked : false;
+    
+    console.log('📝 Form data:', { firstName, lastName, email, subject, message, newsletter });
+    
+    // Validate required fields
+    if (!firstName || !email || !subject || !message) {
+      console.warn('⚠️ Validation failed: Missing required fields');
+      showFormStatus('Please fill in all required fields', 'error', formStatus);
+      return;
+    }
+    
+    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(emailInput.value)) {
-      emailInput.classList.add('error');
-      isValid = false;
-    } else {
-      emailInput.classList.remove('error');
-      emailInput.classList.add('success');
+    if (!emailRegex.test(email)) {
+      console.warn('⚠️ Validation failed: Invalid email');
+      showFormStatus('Please enter a valid email address', 'error', formStatus);
+      return;
     }
     
-    if (messageInput.value.trim() === '') {
-      messageInput.classList.add('error');
-      isValid = false;
-    } else {
-      messageInput.classList.remove('error');
-      messageInput.classList.add('success');
+    // Prepare payload
+    const formData = {
+      firstName,
+      lastName,
+      email,
+      subject,
+      message,
+      newsletter
+    };
+    
+    // Show loading state
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.style.opacity = '0.6';
     }
     
-    if (isValid) {
-      // Add loading state to button
-      const submitButton = contactForm.querySelector('.btn-primary');
-      const originalText = submitButton.textContent;
-      submitButton.textContent = 'Sending...';
-      submitButton.classList.add('loading');
+    try {
+      console.log('🚀 Sending to backend: http://localhost:3000/api/contact');
       
-      // Simulate form submission
-      setTimeout(() => {
-        submitButton.textContent = 'Message Sent!';
-        submitButton.style.background = 'var(--color-success)';
-        
-        // Reset form after 2 seconds
-        setTimeout(() => {
-          contactForm.reset();
-          submitButton.textContent = originalText;
-          submitButton.style.background = '';
-          submitButton.classList.remove('loading');
-          
-          // Remove success classes
-          nameInput.classList.remove('success');
-          emailInput.classList.remove('success');
-          messageInput.classList.remove('success');
-        }, 2000);
-      }, 1500);
-    }
-  });
-  
-  // Remove error state on input
-  const formInputs = contactForm.querySelectorAll('.form-control');
-  formInputs.forEach(input => {
-    input.addEventListener('input', () => {
-      input.classList.remove('error');
-    });
-  });
-}
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    
-    if (target) {
-      const offsetTop = target.offsetTop - 70; // Account for fixed navbar
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
+      const response = await fetch('http://localhost:3000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
       });
+      
+      console.log('📊 Response status:', response.status);
+      
+      const result = await response.json();
+      console.log('✉️ Response data:', result);
+      
+      if (result.success) {
+        console.log('✅ Success! Email sent');
+        showFormStatus('✅ Message sent successfully! We will get back to you soon.', 'success', formStatus);
+        contactForm.reset();
+      } else {
+        console.error('❌ Server error:', result.message);
+        showFormStatus('❌ ' + (result.message || 'Failed to send message'), 'error', formStatus);
+      }
+      
+    } catch (error) {
+      console.error('❌ Network error:', error.message);
+      showFormStatus('❌ Error sending message. Please check if backend is running on http://localhost:3000', 'error', formStatus);
+    } finally {
+      // Restore button
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+        submitBtn.style.opacity = '1';
+      }
     }
-  });
-});
-
-// Add stagger effect to grid items
-function addStaggerAnimation() {
-  const grids = document.querySelectorAll('.advantages-grid, .team-grid, .mission-grid');
-  
-  grids.forEach(grid => {
-    const items = grid.querySelectorAll('.animate-on-scroll');
-    items.forEach((item, index) => {
-      item.style.transitionDelay = `${index * 0.1}s`;
-    });
   });
 }
 
-// Initialize stagger animations
-addStaggerAnimation();
+// Show form status message
+function showFormStatus(message, type, formStatus) {
+  if (!formStatus) {
+    console.warn('⚠️ Form status element not found');
+    return;
+  }
+  
+  formStatus.textContent = message;
+  formStatus.className = `form-status ${type}`;
+  formStatus.style.display = 'block';
+  
+  console.log(`📢 Status: [${type.toUpperCase()}] ${message}`);
+  
+  // Auto-hide success after 5 seconds
+  if (type === 'success') {
+    setTimeout(() => {
+      formStatus.style.display = 'none';
+    }, 5000);
+  }
+}
 
-// Enhanced image loading with fade-in effect
+// ============================================================
+// 7. IMAGE LOADING ANIMATIONS
+// ============================================================
+
 const images = document.querySelectorAll('img');
 images.forEach(img => {
   img.style.opacity = '0';
@@ -254,8 +318,11 @@ images.forEach(img => {
   }
 });
 
-// Add hover sound effect simulation (visual feedback)
-const cards = document.querySelectorAll('.advantage-card, .team-card, .mission-card');
+// ============================================================
+// 8. CARD HOVER EFFECTS
+// ============================================================
+
+const cards = document.querySelectorAll('.advantage-card, .team-card, .mission-card, .tilt-service-card');
 cards.forEach(card => {
   card.addEventListener('mouseenter', () => {
     card.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
@@ -266,26 +333,47 @@ cards.forEach(card => {
   });
 });
 
-// Performance optimization: Debounce scroll events
-function debounce(func, wait) {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
+// ============================================================
+// 9. SMOOTH SCROLL FOR ANCHOR LINKS
+// ============================================================
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    
+    if (target) {
+      const offsetTop = target.offsetTop - 70;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
+// ============================================================
+// 10. STAGGER ANIMATION FOR GRID ITEMS
+// ============================================================
+
+function addStaggerAnimation() {
+  const grids = document.querySelectorAll('.advantages-grid, .team-grid, .mission-grid, .tilt-services-grid');
+  
+  grids.forEach(grid => {
+    const items = grid.querySelectorAll('.animate-on-scroll');
+    items.forEach((item, index) => {
+      item.style.transitionDelay = `${index * 0.1}s`;
+    });
+  });
 }
 
-// Apply debounce to scroll-heavy functions
-const debouncedUpdateNav = debounce(updateActiveNavLink, 100);
-window.addEventListener('scroll', debouncedUpdateNav);
+addStaggerAnimation();
 
-// Add keyboard navigation support
+// ============================================================
+// 11. KEYBOARD NAVIGATION
+// ============================================================
+
 document.addEventListener('keydown', (e) => {
-  // Escape key closes mobile menu
   if (e.key === 'Escape' && navMenu.classList.contains('active')) {
     mobileMenuToggle.classList.remove('active');
     navMenu.classList.remove('active');
@@ -296,386 +384,54 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Add reduced motion support for accessibility
+// ============================================================
+// 12. ACCESSIBILITY - REDUCED MOTION SUPPORT
+// ============================================================
+
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (prefersReducedMotion) {
-  // Disable animations for users who prefer reduced motion
   document.documentElement.style.setProperty('--duration-fast', '0ms');
   document.documentElement.style.setProperty('--duration-normal', '0ms');
   document.documentElement.style.setProperty('--duration-slow', '0ms');
 }
 
-// Mobile viewport height fix for iOS and Android
-function setMobileVH() {
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
+// ============================================================
+// 13. DEBOUNCED SCROLL FUNCTIONS
+// ============================================================
+
+const debouncedUpdateNav = debounce(updateActiveNavLink, 100);
+window.addEventListener('scroll', debouncedUpdateNav);
 
 if (window.innerWidth <= 1023) {
   window.addEventListener('resize', debounce(setMobileVH, 100));
   setMobileVH();
 }
 
-// Initialize everything on DOM content loaded
+// ============================================================
+// 14. INITIALIZATION ON DOM READY
+// ============================================================
+
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Navika Green Consulting website loaded successfully');
+  console.log('🚀 Navika Green Consulting website initialized');
   
-  // Trigger initial active nav update
+  // Initialize form handler
+  initializeContactForm();
+  
+  // Trigger initial nav update
   updateActiveNavLink();
   
-  // Add animation class to hero content after a short delay
+  // Animate hero content
   setTimeout(() => {
     if (heroContent) {
       heroContent.style.opacity = '1';
     }
   }, 100);
   
-  // Set initial mobile viewport height
+  // Set mobile viewport height
   setMobileVH();
   
-  // Add touch event handling for better mobile experience
-
-
-  // Add this to your existing app.js file
-
-// ============================================
-// CONTACT FORM HANDLER - Add this to app.js
-// ============================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Form handler loaded');
-    
-    const contactForm = document.getElementById('contactForm');
-    
-    if (!contactForm) {
-        console.error('Contact form not found!');
-        return;
-    }
-    
-    console.log('Contact form found');
-    
-    contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        console.log('Form submitted');
-        
-        // Get all form elements
-        const firstNameInput = this.querySelector('input[name="firstName"]');
-        const lastNameInput = this.querySelector('input[name="lastName"]');
-        const emailInput = this.querySelector('input[name="email"]');
-        const subjectInput = this.querySelector('input[name="subject"]');
-        const messageInput = this.querySelector('textarea[name="message"]');
-        const newsletterInput = this.querySelector('input[name="newsletter"]');
-        const submitBtn = this.querySelector('.submit-btn') || this.querySelector('button[type="submit"]');
-        
-        // Debug: Check which fields are found
-        console.log('Fields found:', {
-            firstName: !!firstNameInput,
-            lastName: !!lastNameInput,
-            email: !!emailInput,
-            subject: !!subjectInput,
-            message: !!messageInput,
-            newsletter: !!newsletterInput
-        });
-        
-        // Validate required fields exist
-        if (!firstNameInput || !emailInput || !subjectInput || !messageInput) {
-            console.error('Missing required form fields');
-            showNotification('Form error: Missing required fields. Please refresh the page.', 'error');
-            return;
-        }
-        
-        // Get form data
-        const formData = {
-            firstName: firstNameInput.value.trim(),
-            lastName: lastNameInput ? lastNameInput.value.trim() : '',
-            email: emailInput.value.trim(),
-            subject: subjectInput.value.trim(),
-            message: messageInput.value.trim(),
-            newsletter: newsletterInput ? newsletterInput.checked : false
-        };
-        
-        console.log('Form data:', formData);
-        
-        // Basic validation
-        if (!formData.firstName || !formData.email || !formData.subject || !formData.message) {
-            showNotification('Please fill in all required fields.', 'error');
-            return;
-        }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
-            showNotification('Please enter a valid email address.', 'error');
-            return;
-        }
-        
-        // Get submit button
-        const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
-        
-        // Disable button and show loading state
-        if (submitBtn) {
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-            submitBtn.style.opacity = '0.7';
-            submitBtn.style.cursor = 'not-allowed';
-        }
-        
-        try {
-            // IMPORTANT: Change this URL based on your backend choice
-            // Option 1: Node.js backend (local development)
-            // const apiUrl = 'http://localhost:3000/api/contact';
-            
-            // Option 2: Node.js backend (production)
-            // const apiUrl = 'https://yourdomain.com/api/contact';
-            
-            // Option 3: PHP backend
-            const apiUrl = 'contact.php';
-            
-            // Option 4: Formspree
-            // const apiUrl = 'https://formspree.io/f/YOUR_FORM_ID';
-            
-            console.log('Sending to:', apiUrl);
-            
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            });
-            
-            console.log('Response status:', response.status);
-            
-            const result = await response.json();
-            console.log('Response data:', result);
-            
-            if (response.ok && result.success) {
-                // Success
-                showNotification('Thank you! Your message has been sent successfully. We\'ll get back to you soon.', 'success');
-                contactForm.reset();
-            } else {
-                // Error from server
-                showNotification(result.message || 'Failed to send message. Please try again.', 'error');
-            }
-            
-        } catch (error) {
-            console.error('Error:', error);
-            showNotification('Network error. Please check your connection and try again.', 'error');
-        } finally {
-            // Re-enable button
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalBtnText;
-                submitBtn.style.opacity = '1';
-                submitBtn.style.cursor = 'pointer';
-            }
-        }
-    });
+  console.log('✅ All modules loaded successfully');
 });
 
-// ============================================
-// NOTIFICATION FUNCTION
-// ============================================
-function showNotification(message, type) {
-    console.log('Showing notification:', type, message);
-    
-    // Remove any existing notifications
-    const existingNotification = document.querySelector('.form-notification');
-    if (existingNotification) {
-        existingNotification.remove();
-    }
-    
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `form-notification ${type}`;
-    notification.textContent = message;
-    
-    // Style the notification
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 25px;
-        border-radius: 5px;
-        font-weight: 500;
-        z-index: 10000;
-        animation: slideIn 0.3s ease-out;
-        max-width: 400px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        font-size: 14px;
-        line-height: 1.5;
-    `;
-    
-    if (type === 'success') {
-        notification.style.backgroundColor = '#4CAF50';
-        notification.style.color = 'white';
-    } else {
-        notification.style.backgroundColor = '#f44336';
-        notification.style.color = 'white';
-    }
-    
-    // Add to page
-    document.body.appendChild(notification);
-    
-    // Remove after 5 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease-out';
-        setTimeout(() => notification.remove(), 300);
-    }, 5000);
-}
-
-// ============================================
-// ADD CSS ANIMATIONS
-// ============================================
-if (!document.getElementById('form-animations')) {
-    const style = document.createElement('style');
-    style.id = 'form-animations';
-    style.textContent = `
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .form-notification {
-                left: 10px !important;
-                right: 10px !important;
-                top: 10px !important;
-                max-width: calc(100% - 20px) !important;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-// ============================================
-// DEBUGGING HELPER
-// ============================================
-
-
-
-  // app.js - Frontend form handling
-
-document.addEventListener('DOMContentLoaded', function() {
-  const contactForm = document.getElementById('contactForm');
-  const formStatus = document.getElementById('formStatus');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', handleFormSubmit);
-  }
-
-  async function handleFormSubmit(e) {
-    e.preventDefault();
-
-    // Get form data
-    const firstName = document.querySelector('input[name="firstName"]').value.trim();
-    const lastName = document.querySelector('input[name="lastName"]').value.trim();
-    const email = document.querySelector('input[name="email"]').value.trim();
-    const subject = document.querySelector('input[name="subject"]').value.trim();
-    const message = document.querySelector('textarea[name="message"]').value.trim();
-    const newsletter = document.querySelector('input[name="newsletter"]').checked;
-
-    // Basic validation
-    if (!firstName || !email || !subject || !message) {
-      showStatus('Please fill in all required fields', 'error');
-      return;
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      showStatus('Please enter a valid email address', 'error');
-      return;
-    }
-
-    // Prepare data
-    const formData = {
-      firstName,
-      lastName,
-      email,
-      subject,
-      message,
-      newsletter
-    };
-
-    console.log('📤 Sending form data:', formData);
-
-    try {
-      // Show loading state
-      const submitBtn = contactForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
-
-      // Send to backend
-      const response = await fetch('http://localhost:3000/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-
-      const result = await response.json();
-      console.log('Response:', result);
-
-      if (result.success) {
-        showStatus('✅ Message sent successfully! We will get back to you soon.', 'success');
-        contactForm.reset(); // Clear form
-      } else {
-        showStatus('❌ ' + result.message, 'error');
-      }
-
-      // Restore button
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
-
-    } catch (error) {
-      console.error('Error:', error);
-      showStatus('❌ Error sending message. Please check your internet connection.', 'error');
-
-      // Restore button
-      const submitBtn = contactForm.querySelector('button[type="submit"]');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit';
-    }
-  }
-
-  function showStatus(message, type) {
-    const formStatus = document.getElementById('formStatus');
-    if (formStatus) {
-      formStatus.textContent = message;
-      formStatus.className = `form-status ${type}`;
-      formStatus.style.display = 'block';
-
-      // Auto-hide success message after 5 seconds
-      if (type === 'success') {
-        setTimeout(() => {
-          formStatus.style.display = 'none';
-        }, 5000);
-      }
-    }
-  }
-});
-
-console.log('Contact form script loaded successfully');
-
-  });
+console.log('📄 app.js loaded');
