@@ -569,6 +569,113 @@ if (!document.getElementById('form-animations')) {
 // ============================================
 // DEBUGGING HELPER
 // ============================================
+
+
+
+  // app.js - Frontend form handling
+
+document.addEventListener('DOMContentLoaded', function() {
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', handleFormSubmit);
+  }
+
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+
+    // Get form data
+    const firstName = document.querySelector('input[name="firstName"]').value.trim();
+    const lastName = document.querySelector('input[name="lastName"]').value.trim();
+    const email = document.querySelector('input[name="email"]').value.trim();
+    const subject = document.querySelector('input[name="subject"]').value.trim();
+    const message = document.querySelector('textarea[name="message"]').value.trim();
+    const newsletter = document.querySelector('input[name="newsletter"]').checked;
+
+    // Basic validation
+    if (!firstName || !email || !subject || !message) {
+      showStatus('Please fill in all required fields', 'error');
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showStatus('Please enter a valid email address', 'error');
+      return;
+    }
+
+    // Prepare data
+    const formData = {
+      firstName,
+      lastName,
+      email,
+      subject,
+      message,
+      newsletter
+    };
+
+    console.log('📤 Sending form data:', formData);
+
+    try {
+      // Show loading state
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      // Send to backend
+      const response = await fetch('http://localhost:3000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+      console.log('Response:', result);
+
+      if (result.success) {
+        showStatus('✅ Message sent successfully! We will get back to you soon.', 'success');
+        contactForm.reset(); // Clear form
+      } else {
+        showStatus('❌ ' + result.message, 'error');
+      }
+
+      // Restore button
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+
+    } catch (error) {
+      console.error('Error:', error);
+      showStatus('❌ Error sending message. Please check your internet connection.', 'error');
+
+      // Restore button
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit';
+    }
+  }
+
+  function showStatus(message, type) {
+    const formStatus = document.getElementById('formStatus');
+    if (formStatus) {
+      formStatus.textContent = message;
+      formStatus.className = `form-status ${type}`;
+      formStatus.style.display = 'block';
+
+      // Auto-hide success message after 5 seconds
+      if (type === 'success') {
+        setTimeout(() => {
+          formStatus.style.display = 'none';
+        }, 5000);
+      }
+    }
+  }
+});
+
 console.log('Contact form script loaded successfully');
 
   });
