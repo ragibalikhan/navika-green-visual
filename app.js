@@ -1,5 +1,5 @@
 // app.js - Navika Green Consulting
-// Clean version without duplicates
+// Updated to use Vercel backend
 
 // ============================================================
 // 1. NAVBAR & NAVIGATION
@@ -241,9 +241,11 @@ function initializeContactForm() {
     }
     
     try {
-      console.log('🚀 Sending to backend: https://navika-backend.vercel.app/api/contact');
+      // Using Vercel backend URL
+      const backendURL = 'https://navika-backend.vercel.app/api/contact';
+      console.log('🚀 Sending to backend:', backendURL);
       
-      const response = await fetch('https://navika-backend.vercel.app/api/contact', {
+      const response = await fetch(backendURL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -267,7 +269,7 @@ function initializeContactForm() {
       
     } catch (error) {
       console.error('❌ Network error:', error.message);
-      showFormStatus('❌ Error sending message. Please check if backend is running on http://localhost:3000', 'error', formStatus);
+      showFormStatus('❌ Error sending message. Please check your internet connection.', 'error', formStatus);
     } finally {
       // Restore button
       if (submitBtn) {
@@ -434,4 +436,4 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('✅ All modules loaded successfully');
 });
 
-console.log('📄 app.js loaded');
+console.log('📄 app.js loaded - Using Vercel backend');
